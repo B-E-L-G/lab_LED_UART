@@ -74,6 +74,8 @@ UART_HandleTypeDef huart2;
  uint16_t Delay = 1000;
  uint16_t Frequency = 1;
  float Freq = 1;
+ uint8_t rstring[R_BUFF_LEN + 1];//----2
+ uint8_t tstring[255];///---2
  //float delay = 1;
 
 //float temprt;
@@ -106,8 +108,8 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 	//	uint32_t delayms = 100;
-		uint8_t tstring[255];
-		uint8_t rstring[R_BUFF_LEN + 1];
+		uint8_t tstring[255];///----2
+		//uint8_t rstring[R_BUFF_LEN + 1];//---2
 		char string[8];
   /* USER CODE END 1 */
 
@@ -133,7 +135,7 @@ int main(void)
   MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
   ring_init(&uart_ring, buff, sizeof(buff) / sizeof(buff[0]) ); // Initialize UART receiver ring buffer.
-  sprintf((char*)tstring,"UART IT Enter command 'T MCU','V REF' or 'ALL SENS' ('t mcu','v ref','all sens')\r\n");
+  sprintf((char*)tstring,"UART IT Enter command 'F = ' \r\n");
   HAL_UART_Transmit_IT(&huart2,tstring,strlen((char*)tstring));
   HAL_UART_Receive_IT(&huart2,uart_ring.buffer,1);						 // Start UART receiver in the non blocking mode
 
@@ -149,22 +151,30 @@ int main(void)
    //btn_cur = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13);
 
 
-  if (ring_get_message(&uart_ring, rstring)){
-	  sscanf((char*)rstring,"%4[F = ] %.1f" ,string, &Freq);
 
-	  if(!strcmp(string,"F = "))
-	  {
-		  sprintf((char*)tstring,"F = %.1f C\r\n",Freq);
-	  }
+////////////////////////////
+//  if (ring_get_message(&uart_ring, rstring)){
+//	  sscanf((char*)rstring,"%4[F = ]" ,string);
+//	  sscanf((char*)&rstring[strlen(string)],"%f" ,&Freq);
+//
+//	  if(!strcmp(string,"F = "))
+//	  {
+//		  sprintf((char*)tstring,"F = %f \r\n",&Freq);
+//	  }
+//
+//	  else
+//	  {
+//		  // Transmit (in non blocking mode) back to the UART the last entered line and prompt for the next input
+//		  sprintf((char*)tstring,"Incorrect command Echo: %s\n" "Enter the correct command 'F = x.x'\r\n",rstring);
+//	  }
+//
+//	  HAL_UART_Transmit_IT(&huart2,tstring,strlen((char*)tstring));
+//  }
+////////////////////////////
 
-	  else
-	  {
-		  // Transmit (in non blocking mode) back to the UART the last entered line and prompt for the next input
-		  sprintf((char*)tstring,"Incorrect command Echo: %s\n" "Enter the correct command 'F = x.x'\r\n",rstring);
-	  }
 
-	  HAL_UART_Transmit_IT(&huart2,tstring,strlen((char*)tstring));
-  }
+
+
 
 //	  if (ring_get_message(&uart_ring, rstring))
 //	  {
@@ -186,7 +196,7 @@ int main(void)
 //	  }
 
 
-  Delay = (uint16_t)1000/Freq;//T = 1c/F ; період.
+  Delay = (float)1000/Freq;//T = 1c/F ; період.
   //Delay = (uint16_t)delay;
 
   if(btn_state == 0)
