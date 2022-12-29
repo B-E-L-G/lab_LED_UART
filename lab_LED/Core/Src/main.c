@@ -169,28 +169,7 @@ int main(void)
 	  HAL_UART_Transmit_IT(&huart2,tstring,strlen((char*)tstring));
   }
 
-//	  if (ring_get_message(&uart_ring, rstring))
-//	  {
-//		  // Parse the received string for the new Frequency
-//		  if (sscanf((char*)rstring,"%4[F = ] %d" ,string, (int*)&Frequency) != 2)
-//			  // Parse the string for the mode of operation (if no new delay was given)
-//			  sscanf((char*)rstring," %4[F = ]", string);
-//
-//		  if(!strcmp(string,"F = "))
-//		  {
-//			  sprintf((char*)tstring,"F = %d C\r\n",Frequency);
-//		  }
-//		  else
-//		  {
-//			  // Transmit (in non blocking mode) back to the UART the last entered line and prompt for the next input
-//			  sprintf((char*)tstring,"Echo: %s\n" "Enter the correct command 'F = ' \r\n",rstring);
-//		  }
-//		  HAL_UART_Transmit_IT(&huart2,tstring,strlen((char*)tstring));
-//	  }
-
-
   Delay = (float)1000/Freq;//T = 1c/F ; період.
-  //Delay = (uint16_t)delay;
 
   if(btn_state == 0)
       {
