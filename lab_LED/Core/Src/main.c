@@ -151,8 +151,6 @@ int main(void)
    //btn_cur = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13);
 
 
-
-////////////////////////////
   if (ring_get_message(&uart_ring, rstring)){
 	  sscanf((char*)rstring,"%4[F = ]" ,string);
 	  sscanf((char*)&rstring[strlen(string)],"%f" ,&Freq);
@@ -170,11 +168,6 @@ int main(void)
 
 	  HAL_UART_Transmit_IT(&huart2,tstring,strlen((char*)tstring));
   }
-////////////////////////////
-
-
-
-
 
 //	  if (ring_get_message(&uart_ring, rstring))
 //	  {
@@ -199,29 +192,29 @@ int main(void)
   Delay = (float)1000/Freq;//T = 1c/F ; період.
   //Delay = (uint16_t)delay;
 
-//  if(btn_state == 0)
-//      {
-//        HAL_GPIO_WritePin(GPIOC, Led1_Pin, 1);//
-//        HAL_Delay(Delay);
-//        HAL_GPIO_WritePin(GPIOC, Led1_Pin, 0);
-//        HAL_GPIO_WritePin(GPIOC, Led2_Pin, 1);
-//        HAL_Delay(Delay);
-//        HAL_GPIO_WritePin(GPIOC, Led2_Pin, 0);
-//      }
-//      else
-//      {
-//        HAL_GPIO_WritePin(GPIOC, Led1_Pin, 1);
-//        HAL_Delay(Delay);
-//
-//        HAL_GPIO_WritePin(GPIOC, Led2_Pin, 1);
-//        HAL_Delay(Delay);
-//
-//        HAL_GPIO_WritePin(GPIOC, Led1_Pin, 0);
-//        HAL_Delay(Delay);
-//
-//        HAL_GPIO_WritePin(GPIOC, Led2_Pin, 0);
-//        HAL_Delay(Delay);
-//      }
+  if(btn_state == 0)
+      {
+        HAL_GPIO_WritePin(GPIOC, Led1_Pin, 1);//
+        HAL_Delay(Delay);
+        HAL_GPIO_WritePin(GPIOC, Led1_Pin, 0);
+        HAL_GPIO_WritePin(GPIOC, Led2_Pin, 1);
+        HAL_Delay(Delay);
+        HAL_GPIO_WritePin(GPIOC, Led2_Pin, 0);
+      }
+      else
+      {
+        HAL_GPIO_WritePin(GPIOC, Led1_Pin, 1);
+        HAL_Delay(Delay);
+
+        HAL_GPIO_WritePin(GPIOC, Led2_Pin, 1);
+        HAL_Delay(Delay);
+
+        HAL_GPIO_WritePin(GPIOC, Led1_Pin, 0);
+        HAL_Delay(Delay);
+
+        HAL_GPIO_WritePin(GPIOC, Led2_Pin, 0);
+        HAL_Delay(Delay);
+      }
 
  // 0.1 Гц - 10 000 мс
 
