@@ -153,23 +153,23 @@ int main(void)
 
 
 ////////////////////////////
-//  if (ring_get_message(&uart_ring, rstring)){
-//	  sscanf((char*)rstring,"%4[F = ]" ,string);
-//	  sscanf((char*)&rstring[strlen(string)],"%f" ,&Freq);
-//
-//	  if(!strcmp(string,"F = "))
-//	  {
-//		  sprintf((char*)tstring,"F = %f \r\n",&Freq);
-//	  }
-//
-//	  else
-//	  {
-//		  // Transmit (in non blocking mode) back to the UART the last entered line and prompt for the next input
-//		  sprintf((char*)tstring,"Incorrect command Echo: %s\n" "Enter the correct command 'F = x.x'\r\n",rstring);
-//	  }
-//
-//	  HAL_UART_Transmit_IT(&huart2,tstring,strlen((char*)tstring));
-//  }
+  if (ring_get_message(&uart_ring, rstring)){
+	  sscanf((char*)rstring,"%4[F = ]" ,string);
+	  sscanf((char*)&rstring[strlen(string)],"%f" ,&Freq);
+
+	  if(!strcmp(string,"F = "))
+	  {
+		  sprintf((char*)tstring,"F = %f \r\n",&Freq);
+	  }
+
+	  else
+	  {
+		  // Transmit (in non blocking mode) back to the UART the last entered line and prompt for the next input
+		  sprintf((char*)tstring,"Incorrect command Echo: %s\n" "Enter the correct command 'F = x.x'\r\n",rstring);
+	  }
+
+	  HAL_UART_Transmit_IT(&huart2,tstring,strlen((char*)tstring));
+  }
 ////////////////////////////
 
 
@@ -199,29 +199,29 @@ int main(void)
   Delay = (float)1000/Freq;//T = 1c/F ; період.
   //Delay = (uint16_t)delay;
 
-  if(btn_state == 0)
-      {
-        HAL_GPIO_WritePin(GPIOC, Led1_Pin, 1);//
-        HAL_Delay(Delay);
-        HAL_GPIO_WritePin(GPIOC, Led1_Pin, 0);
-        HAL_GPIO_WritePin(GPIOC, Led2_Pin, 1);
-        HAL_Delay(Delay);
-        HAL_GPIO_WritePin(GPIOC, Led2_Pin, 0);
-      }
-      else
-      {
-        HAL_GPIO_WritePin(GPIOC, Led1_Pin, 1);
-        HAL_Delay(Delay);
-
-        HAL_GPIO_WritePin(GPIOC, Led2_Pin, 1);
-        HAL_Delay(Delay);
-
-        HAL_GPIO_WritePin(GPIOC, Led1_Pin, 0);
-        HAL_Delay(Delay);
-
-        HAL_GPIO_WritePin(GPIOC, Led2_Pin, 0);
-        HAL_Delay(Delay);
-      }
+//  if(btn_state == 0)
+//      {
+//        HAL_GPIO_WritePin(GPIOC, Led1_Pin, 1);//
+//        HAL_Delay(Delay);
+//        HAL_GPIO_WritePin(GPIOC, Led1_Pin, 0);
+//        HAL_GPIO_WritePin(GPIOC, Led2_Pin, 1);
+//        HAL_Delay(Delay);
+//        HAL_GPIO_WritePin(GPIOC, Led2_Pin, 0);
+//      }
+//      else
+//      {
+//        HAL_GPIO_WritePin(GPIOC, Led1_Pin, 1);
+//        HAL_Delay(Delay);
+//
+//        HAL_GPIO_WritePin(GPIOC, Led2_Pin, 1);
+//        HAL_Delay(Delay);
+//
+//        HAL_GPIO_WritePin(GPIOC, Led1_Pin, 0);
+//        HAL_Delay(Delay);
+//
+//        HAL_GPIO_WritePin(GPIOC, Led2_Pin, 0);
+//        HAL_Delay(Delay);
+//      }
 
  // 0.1 Гц - 10 000 мс
 
